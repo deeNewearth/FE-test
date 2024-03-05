@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components/navigation/navbar";
+import { cookieToInitialState } from "wagmi";
+import { config } from "@/config";
+import { headers } from "next/headers";
+import { WagmiContextProvider } from "@/context";
+import { Web3StatusProvider } from "./components/web3/context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,14 +20,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar/>
-        <div className="container mx-auto">
-          {children}
-        </div>
-        
+        <WagmiContextProvider initialState={initialState}>
+          <Web3StatusProvider>
+          <Navbar />
+          <div className="container mx-auto">{children}</div>
+          </Web3StatusProvider>
+        </WagmiContextProvider>
       </body>
     </html>
   );
