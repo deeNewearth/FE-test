@@ -2,9 +2,13 @@
 
 import { useWeb3 } from "./components/web3/context";
 import truncateEthAddress from "truncate-eth-address";
+import { useTokenData } from "./components/web3/tokenData";
 
 export default function Home() {
   const { isActive, address } = useWeb3();
+  const tokenData = useTokenData();
+
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-start gap-10">
       <div className="mt-20">
@@ -17,17 +21,17 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
         <div className="border-4 border-indigo-500 rounded-xl p-2 max-w-80">
           <p className="text-2xl">Token Symbol</p>
-          <p>ynETH</p>
+          <p>{tokenData.status ==="success" && tokenData.tokenSymbol}</p>
         </div>
 
         <div className="border-4 border-indigo-500 rounded-xl p-2 max-w-80">
-          <p className="text-2xl">Token Symbol</p>
-          <p>ynETH</p>
+          <p className="text-2xl">Token Name</p>
+          <p>{tokenData.status ==="success" && tokenData.tokenName}</p>
         </div>
 
         <div className="border-4 border-indigo-500 rounded-xl p-2 max-w-80">
-          <p className="text-2xl">Token Symbol</p>
-          <p>ynETH</p>
+          <p className="text-2xl">Token Decimals</p>
+          <p>{tokenData.status ==="success" && tokenData.tokenDecimals}</p>
         </div>
       </div>
 
@@ -35,12 +39,12 @@ export default function Home() {
         {isActive && address && (
           <p>
             <span className="text-2xl mr-3">User Balance </span>{" "}
-            <span className="text-lg">0.00011 ynETH</span>
+            <span className="text-lg">{tokenData.status ==="success" && tokenData.userBalance} {tokenData.status ==="success" && tokenData.tokenSymbol}</span>
           </p>
         )}
         <p>
           <span className="text-2xl mr-3">Total Supply </span>{" "}
-          <span className="text-lg">16713.989898989898 ynETH</span>
+          <span className="text-lg">{tokenData.status ==="success" && tokenData.tokenSupply} {tokenData.status ==="success" && tokenData.tokenSymbol}</span>
         </p>
       </div>
 
