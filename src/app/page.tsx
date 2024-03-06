@@ -10,8 +10,8 @@ export default function Home() {
   const tokenData = useTokenData();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start gap-10">
-      <div className="mt-20">
+    <main className="flex min-h-screen flex-col items-center gap-10 px-1">
+      <div className="mt-20 content-center">
         <p className="text-5xl">Yieldnest FE Test</p>
         {isActive && address && (
           <p className="text-lg">Your address: {truncateEthAddress(address)}</p>

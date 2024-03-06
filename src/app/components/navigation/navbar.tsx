@@ -40,7 +40,7 @@ export function Navbar() {
               <span className="text-3xl">YieldNest</span>
             </div>
 
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded min-w-60"
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded min-w-30"
                 onClick={()=>web3Open()}
             >
               {(isActive && address)?truncateEthAddress(address):'Connect Wallet'}
