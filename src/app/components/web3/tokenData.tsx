@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+
 import { useWeb3 } from "./context";
-import { useReadContract, useReadContracts } from "wagmi";
+import { useReadContracts } from "wagmi";
 import { formatUnits } from "viem";
 
 import YNETH_ABI from "@/ynETH.abi";
-
 const tokenAddress = "0x0091626e15caFd0F6Bc96dE7F12CEe444c0a212d";
 
-const yNethContract = {
+export const yNethContract = {
   address: tokenAddress,
   abi: YNETH_ABI,
 } as const;
@@ -32,6 +31,7 @@ export function useTokenData(): {
       ...yNethContract,
       functionName: "name",
       args: [] as string[],
+      watch: false,
     },
     {
       ...yNethContract,
@@ -54,6 +54,7 @@ export function useTokenData(): {
         ...yNethContract,
         functionName: "balanceOf",
         args: [address],
+        watch: true
       },
     ];
   }

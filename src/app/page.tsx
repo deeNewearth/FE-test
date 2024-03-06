@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
 import { useWeb3 } from "./components/web3/context";
 import truncateEthAddress from "truncate-eth-address";
 import { useTokenData } from "./components/web3/tokenData";
+import { DepositEth } from "./components/web3/depositEth";
 
 export default function Home() {
   const { isActive, address } = useWeb3();
   const tokenData = useTokenData();
-
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start gap-10">
@@ -21,17 +21,17 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
         <div className="border-4 border-indigo-500 rounded-xl p-2 max-w-80">
           <p className="text-2xl">Token Symbol</p>
-          <p>{tokenData.status ==="success" && tokenData.tokenSymbol}</p>
+          <p>{tokenData.status === "success" && tokenData.tokenSymbol}</p>
         </div>
 
         <div className="border-4 border-indigo-500 rounded-xl p-2 max-w-80">
           <p className="text-2xl">Token Name</p>
-          <p>{tokenData.status ==="success" && tokenData.tokenName}</p>
+          <p>{tokenData.status === "success" && tokenData.tokenName}</p>
         </div>
 
         <div className="border-4 border-indigo-500 rounded-xl p-2 max-w-80">
           <p className="text-2xl">Token Decimals</p>
-          <p>{tokenData.status ==="success" && tokenData.tokenDecimals}</p>
+          <p>{tokenData.status === "success" && tokenData.tokenDecimals}</p>
         </div>
       </div>
 
@@ -39,28 +39,22 @@ export default function Home() {
         {isActive && address && (
           <p>
             <span className="text-2xl mr-3">User Balance </span>{" "}
-            <span className="text-lg">{tokenData.status ==="success" && tokenData.userBalance} {tokenData.status ==="success" && tokenData.tokenSymbol}</span>
+            <span className="text-lg">
+              {tokenData.status === "success" && tokenData.userBalance}{" "}
+              {tokenData.status === "success" && tokenData.tokenSymbol}
+            </span>
           </p>
         )}
         <p>
           <span className="text-2xl mr-3">Total Supply </span>{" "}
-          <span className="text-lg">{tokenData.status ==="success" && tokenData.tokenSupply} {tokenData.status ==="success" && tokenData.tokenSymbol}</span>
+          <span className="text-lg">
+            {tokenData.status === "success" && tokenData.tokenSupply}{" "}
+            {tokenData.status === "success" && tokenData.tokenSymbol}
+          </span>
         </p>
       </div>
 
-      <div className="content-start min-w-80">
-        <label className="text-2xl">Deposit ETH</label>
-
-        <input
-          type="text"
-          id="large-input"
-          className="my-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        ></input>
-
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-          Deposit
-        </button>
-      </div>
+      {isActive && address && <DepositEth />}
     </main>
   );
 }
